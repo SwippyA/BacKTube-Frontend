@@ -10,6 +10,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState(null); // State for avatar file
   const [coverImage, setCoverImage] = useState(null); // State for cover image
+  const [user, setUser] = useState({});
 
   // Event handler functions to update state when input values change
   const handleFullNameChange = (e) => {
@@ -40,15 +41,15 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // You can access the values of the input fields from the state variables here
-    const formData ={
-      "fullName": fullName,
-      "email": email,
-      "password": password,
-      "username": username,
-      "avatar": avatar,
-      "coverImage": coverImage,
-    }
-    console.log(formData);
+    const formData = {
+      fullName: fullName,
+      email: email,
+      password: password,
+      username: username,
+      avatar: avatar,
+      coverImage: coverImage,
+    };
+    // console.log(formData);
 
     try {
       const response = await axios.post(
@@ -59,9 +60,8 @@ function Register() {
             "Content-Type": "multipart/form-data",
           },
         }
-  
       );
-      console.log(response);
+      console.log(response.data.message);
       // console.log("Registration successful!", response.data);
       // Handle success, possibly redirect or show a success message
     } catch (error) {
