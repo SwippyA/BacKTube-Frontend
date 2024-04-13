@@ -72,7 +72,7 @@ function Register() {
 
   return (
     <div className="w-screen h-screen flex flex-col bg-gray-900 justify-center items-center">
-      <h1 className="m-2 text-4xl font-extrabold text-purple-700">
+      <h1 className="m-2 text-4xl hover:underline  duration-700 font-extrabold text-purple-700">
         Register Now
       </h1>
       <div className="w-[400px] h-fit bg-gray-800 rounded-xl">
@@ -136,6 +136,15 @@ function Register() {
           >
             Register
           </button>
+          <div className="flex items-center justify-center text-white font-bold">
+            <p className="mr-1">Already have an account</p>
+            <a
+              href=""
+              className="text-purple-700 hover:text-purple-600 p-1 rounded-md font-semibold "
+            >
+              Sign in
+            </a>
+          </div>
         </form>
       </div>
     </div>
