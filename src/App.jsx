@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 // import "./App.css";
   import axios from "axios";
 import Register from "./Register/Register";
+import Login from "./Login/Login";
+import {Outlet} from "react-router-dom"
 
 
 function App() {
@@ -38,7 +40,10 @@ function App() {
       ) : (
         <div>Loading user data...</div>
       )} */}
-      <Register/>
+      {/* <Register/> */}
+      {/* <h1>hi shubhankar </h1> */}
+      <Outlet/>
+            {/* <Login/> */}
     </>
   );
 }
