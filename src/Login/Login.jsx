@@ -19,23 +19,23 @@ function Login() {
     };
     console.log(formData);
 
-        try {
-          const response = await axios.post(
-            "http://localhost:8000/api/v1/users/login",
-            formData,
-            // {
-            //   headers: {
-            //     "Content-Type": "multipart/form-data",
-            //   },
-            // }
-          );
-          console.log(response.data);
-          // console.log("Registration successful!", response.data);
-          // Handle success, possibly redirect or show a success message
-        } catch (error) {
-          console.error("Registration failed:", error);
-          // Handle error, possibly show an error message
-        }
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/login",
+        formData
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
+      );
+      console.log(response.data);
+      // console.log("Registration successful!", response.data);
+      // Handle success, possibly redirect or show a success message
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // Handle error, possibly show an error message
+    }
   };
 
   return (
@@ -95,8 +95,6 @@ function Login() {
       </div>
       {/* <Outlet/> */}
     </div>
-
-     
   );
 }
 
