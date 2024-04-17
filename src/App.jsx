@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 // import "./App.css";
-  import axios from "axios";
+import axios from "axios";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
-import {Outlet} from "react-router-dom"
-
+// import Toaster from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
+import { Outlet } from "react-router-dom";
 
 function App() {
   // const [userData, setUserData] = useState(null); // State to hold user data
@@ -42,8 +43,9 @@ function App() {
       )} */}
       {/* <Register/> */}
       {/* <h1>hi shubhankar </h1> */}
-      <Outlet/>
-            {/* <Login/> */}
+      <Outlet />
+      <Toaster position="top-right" reverseOrder={false} />
+      {/* <Login/> */}
     </>
   );
 }

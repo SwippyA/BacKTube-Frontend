@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { axios } from "axios";'
 import axios from "axios";
 import { Outlet } from "react-router-dom";
-
+import toast from "react-hot-toast";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,11 +30,17 @@ function Login() {
         // }
       );
       console.log(response.data);
+      toast.success(response.data.data.message);
+      
       // console.log("Registration successful!", response.data);
       // Handle success, possibly redirect or show a success message
     } catch (error) {
-      console.error("Registration failed:", error);
-      // Handle error, possibly show an error message
+      
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.statusText)
+        toast.error(error.response.statusText); // Displaying error message to user
+     
     }
   };
 
