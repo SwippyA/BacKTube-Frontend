@@ -31,16 +31,14 @@ function Login() {
       );
       console.log(response.data);
       toast.success(response.data.data.message);
-      
+
       // console.log("Registration successful!", response.data);
       // Handle success, possibly redirect or show a success message
     } catch (error) {
-      
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.statusText)
-        toast.error(error.response.statusText); // Displaying error message to user
-     
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.statusText);
+      toast.error(error.response.statusText); // Displaying error message to user
     }
   };
 
