@@ -7,16 +7,17 @@ import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 // import { store } from "../Store/Store";
 function Home() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { isAuthenticated, user, token } = useSelector((state) => state.auth);
-
-  // console.log(isAuthenticated);
-  // console.log(user);
-  // console.log(token);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  console.log(data);
+  function formatDuration(duration) {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +44,7 @@ function Home() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <div className=" bg-gray-950 w-fir h-fit ">
@@ -206,7 +207,8 @@ function Home() {
                   </NavLink>
                 </li>
               )}
-              {user ? <li>
+              {user ? (
+                <li>
                   <NavLink
                     to={"login"}
                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-purple-700 group"
@@ -229,37 +231,51 @@ function Home() {
                       Logout
                     </span>
                   </NavLink>
-                </li> :""}
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
         </aside>
 
         <div className="flex flex-wrap justify-center md:justify-start w-full max-w-[1100px] mx-auto p-5 gap-3  relative left-0 md:left-[87px]">
-          <img
-            src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-            alt=""
-            className="w-full md:w-[344px] h-[200px] rounded-lg mb-8"
-          />
-          <img
-            src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-            alt=""
-            className="w-full md:w-[344px] h-[200px] rounded-lg mb-8 md:mb-0"
-          />
-          <img
-            src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-            alt=""
-            className="w-full md:w-[344px] h-[200px] rounded-lg mb-8 md:mb-0"
-          />
-          <img
-            src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-            alt=""
-            className="w-full md:w-[339px] h-[200px] rounded-lg mb-8 md:mb-0"
-          />
-          <img
-            src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-            alt=""
-            className="w-full md:w-[339px] h-[200px] rounded-lg"
-          />
+          {data.map((video) => (
+            <div className=" p-3  relative">
+             <Link to={`video/${video._id}`}>
+
+                <img
+                  src={video.thumbnail}
+                  alt=""
+                  className="w-full md:w-[320px] h-[180px] hover:shadow-lg hover:shadow-purple-700 rounded-lg mb-3 cursor-pointer"
+                />
+              </Link>
+              <span className=" bg-black rounded-md text-white text-sm px-1 py-0.5   absolute bottom-[70px] right-5">
+                {formatDuration(video.duration)}
+              </span>
+              <div className="flex items-center gap-3">
+                <img
+                  src={video.owner.avatar}
+                  alt=""
+                  className="w-[40px] h-[40px]  cursor-pointer rounded-full"
+                />
+                <h1 className="text-lg w-fit font-semibold text-white">
+                  {video.title}
+                </h1>
+              </div>
+              <div className="text-white flex flex-col justify-center px-[52px]">
+                <h1 className="text-sm font-semibold hover:text-purple-700 cursor-pointer">
+                  {video.owner.username}
+                </h1>
+                <div className="flex gap-2">
+                  <p className="text-gray-400 text-sm">{video.views} Views </p>
+                  <p className="text-gray-400 text-sm">
+                    Date: {new Date(video.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
