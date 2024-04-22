@@ -242,8 +242,7 @@ function Home() {
         <div className="flex flex-wrap justify-center md:justify-start w-full max-w-[1100px] mx-auto p-5 gap-3  relative left-0 md:left-[87px]">
           {data.map((video) => (
             <div className=" p-3  relative">
-             <Link to={`video/${video._id}`}>
-
+              <Link to={`video/${video._id}`}>
                 <img
                   src={video.thumbnail}
                   alt=""

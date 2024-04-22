@@ -15,6 +15,7 @@ import Forget_password_email from "./Login/Forget_password_email.jsx";
 import Forget_password_setPassword from "./Login/Forget_password_setpassword.jsx";
 import { store } from './Store/Store.js'
 import { Provider } from 'react-redux'
+import Account from "./Home/Account.jsx";
 
 const routers = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,10 @@ const routers = createBrowserRouter(
       <Route
         path="forget_password/:id"
         element={<Forget_password_setPassword />}
+      />
+      <Route
+        path="account"
+        element={<Account />}
       />
       <Route path="*" element={<div>Page not found</div>} />
     </Route>
