@@ -1,25 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import axios from "axios";
 function Account() {
   const { isAuthenticated, token } = useSelector((state) => state.auth);
+  const [data, setData] = useState({});
   const user = {
-    _id: "662683ba1a4a63b20a67896e",
-    username: "rocky222",
-    email: "dsfdsfds@432",
+    _id: "662ba8227d671fd34a61aba3",
+    username: "rocky222333",
+    email: "dsfdsfds@43233",
     fullName: "Shubhankar Swain",
     avatar:
-      "http://res.cloudinary.com/dm6jgzvnx/image/upload/v1713800134/mzujpvpfpch4bpawlu0s.jpg",
+      "http://res.cloudinary.com/dm6jgzvnx/image/upload/v1714137135/t06vrb0lfpkurp7voepg.jpg",
     coverImage: "",
     watchHistory: [],
-    createdAt: "2024-04-22T15:35:22.715Z",
-    updatedAt: "2024-04-22T15:35:22.715Z",
+    createdAt: "2024-04-26T13:12:02.424Z",
+    updatedAt: "2024-04-26T13:13:42.888Z",
     __v: 0,
   };
-  //   Dachborder api
-  //   get subscriber  api
-  console.log(user._id);
+  const tokens =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJiYTgyMjdkNjcxZmQzNGE2MWFiYTMiLCJlbWFpbCI6ImRzZmRzZmRzQDQzMjMzIiwidXNlcm5hbWUiOiJyb2NreTIyMjMzMyIsImZ1bGxOYW1lIjoiU2h1YmhhbmthciBTd2FpbiIsImlhdCI6MTcxNDEzNzIyMiwiZXhwIjoxNzE0MjIzNjIyfQ.lNcAWrWVcMue3RF1cNl2-4CX1GqKbt8e7UFQKar6kws";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/v1/dashboard/stats",
+          {
+            headers: {
+              Authorization: `Bearer ${tokens}`,
+            },
+          }
+        );
+        setData(response.data.data);
+        toast.success("get all channel  videos");
+      } catch (error) {
+        toast.error(error.message);
+      } 
+    };
+
+    fetchData();
+    // console.log(data);
+  }, []);
+
+  console.log(data);
+
   return (
     <>
       <div className="w-full h-fit flex flex-col bg-gray-950 p-6">
@@ -34,8 +59,12 @@ function Account() {
               <h1 className="text-white text-5xl font-bold">{user.fullName}</h1>
               <p className="text-gray-500 text-sm">@{user.username}</p>
               <div className="flex gap-2">
-                <p className="text-gray-500 text-sm">subscibes</p>
-                <p className="text-gray-500 text-sm">no. of video</p>
+                <p className="text-gray-500 text-sm">
+                  Subscriber : {data.data || 0}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  Total Video: {data.data || 0}
+                </p>
               </div>
               <div className="flex gap-4">
                 {" "}
