@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Forget_password_email() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate(); // Get the navigate function for navigation
+  const id ="662ba8227d671fd34a61aba3";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,12 +48,12 @@ function Forget_password_email() {
             required
           />
 
-          <button
+          <Link to={`/forget_password/${id}`}
             type="submit"
             className="p-2 mx-auto hover:bg-purple-600 w-1/2 bg-purple-700 rounded-xl text-lg m-1 font-bold text-white"
           >
             Submit
-          </button>
+          </Link>
         </form>
       </div>
     </div>

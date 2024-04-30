@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 function Account() {
-  const { isAuthenticated, token } = useSelector((state) => state.auth);
+  // const { isAuthenticated, user, accessToken } = useSelector(
+  //   (state) => state.auth
+  // );
   const [data, setData] = useState({});
   const user = {
     _id: "662ba8227d671fd34a61aba3",
@@ -144,13 +146,13 @@ function Account() {
               </div>
             </div>
             <div className=" p-3  relative ">
-              <Link to={"login"}>
+              <NavLink to={"/login"}>
                 <img
                   src="https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg?size=626&ext=jpg&ga=GA1.1.553209589.1713744000&semt=sph"
                   alt=""
                   className="w-full md:w-[350px] h-[190px] hover:shadow-lg hover:shadow-purple-700 rounded-lg mb-3 cursor-pointer"
                 />
-              </Link>
+              </NavLink>
               <span className=" bg-black rounded-md text-white text-sm px-1 py-0.5   absolute bottom-[70px] right-5">
                 0.02
               </span>
@@ -173,7 +175,7 @@ function Account() {
               </div>
             </div>
             <div className=" p-3  relative ">
-              <Link to={"login"}>
+              <Link to={"/login"}>
                 <img
                   src="https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg?size=626&ext=jpg&ga=GA1.1.553209589.1713744000&semt=sph"
                   alt=""

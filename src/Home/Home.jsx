@@ -8,11 +8,13 @@ import toast from "react-hot-toast";
 // import { store } from "../Store/Store";
 function Home() {
   // const dispatch = useDispatch();
-  const { isAuthenticated, user, token } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, accessToken } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(data);
+  console.log(isAuthenticated);
+  console.log(user);
+  console.log(accessToken);
   function formatDuration(duration) {
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
@@ -38,7 +40,19 @@ function Home() {
 
   if (loading) {
     // toast.loading("Loading").charAt(1).remove();;
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="bg-purple-700 p-5 rounded-lg shadow-lg flex items-center">
+          <div className="mr-4">
+            <div className="w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
+          </div>
+          <div>
+            <div className="w-32 h-6 bg-gray-200 rounded-full animate-pulse"></div>
+            <div className="mt-1 w-24 h-4 bg-gray-200 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -241,7 +255,7 @@ function Home() {
 
         <div className="flex flex-wrap justify-center md:justify-start w-full max-w-[1100px] mx-auto p-5 gap-3  relative left-0 md:left-[87px]">
           {data.map((video) => (
-            <div className=" p-3  relative">
+            <div  key={video._id} className=" p-3  relative">
               <Link to={`video/${video._id}`}>
                 <img
                   src={video.thumbnail}

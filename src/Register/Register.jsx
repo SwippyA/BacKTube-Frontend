@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom"
 // import { axios } from "axios";'
 import axios from "axios";
 
@@ -138,12 +139,12 @@ function Register() {
           </button>
           <div className="flex items-center justify-center text-white font-bold">
             <p className="mr-1">Already have an account</p>
-            <a
-              href=""
-              className="text-purple-700 hover:text-purple-600 p-1 rounded-md font-semibold "
+            <Link
+              to={"/login"}
+              className="text-purple-700 underline hover:text-purple-600 p-1 rounded-md font-semibold"
             >
-              Sign in
-            </a>
+              Login
+            </Link>
           </div>
         </form>
       </div>
