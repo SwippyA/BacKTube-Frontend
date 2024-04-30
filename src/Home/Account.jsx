@@ -36,7 +36,7 @@ function Account() {
         toast.success("get all channel  videos");
       } catch (error) {
         toast.error(error.message);
-      } 
+      }
     };
 
     fetchData();
@@ -49,30 +49,32 @@ function Account() {
     <>
       <div className="w-full h-fit flex flex-col bg-gray-950 p-6">
         <div>
-          <div className="w-full h-fit p-6 flex  ml-5 gap-2">
+          <div className="w-full h-fit p-6 flex flex-col md:flex-row items-center justify-between gap-2">
             <img
               src="https://avatars.mds.yandex.net/i?id=b507a2b8d9382967a186c654f1eeaa74-5262078-images-taas-consumers&n=27&h=480&w=480"
               alt=""
-              className=" rounded-full w-44 h-44 relative top-4 "
+              className="rounded-full w-44 h-44 md:w-60 md:h-60"
             />
-            <div className=" flex flex-col p-10  gap-1 ">
-              <h1 className="text-white text-5xl font-bold">{user.fullName}</h1>
-              <p className="text-gray-500 text-sm">@{user.username}</p>
-              <div className="flex gap-2">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center">
+              <div className="flex flex-col">
+                <h1 className="text-white text-5xl font-bold">
+                  {user.fullName}
+                </h1>
+                <p className="text-gray-500 text-sm">@{user.username}</p>
+              </div>
+              <div className="flex gap-4">
                 <p className="text-gray-500 text-sm">
-                  Subscriber : {data.data || 0}
+                  Subscriber: {data.data || 0}
                 </p>
                 <p className="text-gray-500 text-sm">
-                  Total Video: {data.data || 0}
+                  Total Videos: {data.data || 0}
                 </p>
               </div>
               <div className="flex gap-4">
-                {" "}
-                <button className=" text-white text-sm px-7 py-2 rounded-2xl  mt-1 font-semibold bg-gray-800 hover:bg-purple-700 duration-200">
-                  Edit Your Profile{" "}
+                <button className="text-white text-sm px-7 py-2 rounded-2xl font-semibold bg-gray-800 hover:bg-purple-700 duration-200">
+                  Edit Your Profile
                 </button>
-                <button className=" text-white text-sm px-7 py-2 rounded-2xl duration-200 hover:bg-purple-700 mt-1 font-semibold bg-gray-800">
-                  {" "}
+                <button className="text-white text-sm px-7 py-2 rounded-2xl duration-200 hover:bg-purple-700 font-semibold bg-gray-800">
                   Upload Video
                 </button>
               </div>
