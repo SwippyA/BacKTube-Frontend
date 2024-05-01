@@ -45,7 +45,7 @@ function Login() {
       );
       console.log(response.data);
       toast.success(response.data.message);
-      dispatch(login(response.data.data));
+      const hi =dispatch(login(response.data.data));
 
       // console.log("Registration successful!", response.data);
       // Handle success, possibly redirect or show a success message

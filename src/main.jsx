@@ -14,10 +14,11 @@ import Video from "./Home/Video.jsx";
 import Home from "./Home/Home.jsx";
 import Forget_password_email from "./Login/Forget_password_email.jsx";
 import Forget_password_setPassword from "./Login/Forget_password_setpassword.jsx";
-import { store } from "../src/Store/Store.js";
+import { store, persistor } from "../src/Store/Store.js";
 import { Provider } from "react-redux";
 import Account from "./Home/Account.jsx";
 import User_Profile from "./Home/User_Profile.jsx";
+import { PersistGate } from "redux-persist/integration/react";
 
 const routers = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,8 @@ const routers = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={routers} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={routers} />
+    </PersistGate>
   </Provider>
 );
