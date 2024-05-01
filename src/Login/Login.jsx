@@ -27,12 +27,6 @@ function Login() {
       username: username,
     };
     console.log(formData);
-    //   {
-    //     "email":"dfkjhdsjfh@gmail.com",
-    //     "password":"3434343242",
-    //     "username":"sdhjfh"
-    // }
-
     try {
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/login",
@@ -46,19 +40,11 @@ function Login() {
       console.log(response.data);
       toast.success(response.data.message);
       const hi =dispatch(login(response.data.data));
-
-      // console.log("Registration successful!", response.data);
-      // Handle success, possibly redirect or show a success message
     } catch (error) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
       console.log(error.response.statusText);
       toast.error(error.response.statusText); // Displaying error message to user
     }
   };
-  // console.log(user.username);
-  // console.log(user._id);
-
   return (
     <div className="w-screen h-screen flex flex-col bg-gray-900 justify-center items-center">
       <h1 className="m-2 text-4xl hover:underline  duration-700 font-extrabold text-purple-700">
