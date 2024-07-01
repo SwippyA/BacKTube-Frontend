@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { store } from "./Store/Store.js";
-import { useSelector, useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom"
+import { useSelector, useDispatch, } from "react-redux";
 import { login, logout } from "../Store/Reducer/Login.js";
 import axios from "axios";
 import { Link, Outlet } from "react-router-dom";
@@ -13,6 +14,7 @@ function Login() {
     (state) => state.auth
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   console.log(isAuthenticated);
   console.log(user);
   console.log(accessToken);
@@ -39,6 +41,9 @@ function Login() {
       );
       console.log(response.data);
       toast.success(response.data.message);
+      if(response.data.message){
+        navigate("/")
+      }
       const hi =dispatch(login(response.data.data));
     } catch (error) {
       console.log(error.response.statusText);

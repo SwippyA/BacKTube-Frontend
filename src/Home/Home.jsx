@@ -283,8 +283,8 @@ function Home() {
                   {video.title}
                 </h1>
               </div>
-              <div className="text-white flex flex-col justify-center px-[52px]">
-                <h1 className="text-sm font-semibold hover:text-purple-700 cursor-pointer">
+              <div className="text-white flex flex-col justify-center relative -top-2 px-[52px]">
+                <h1 className="text-sm font-semibold w-fit hover:text-purple-700 cursor-pointer">
                   {video.owner.username}
                 </h1>
                 <div className="flex gap-2">

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import ReactPlayer from "react-player";
 import { Link, NavLink, useParams, useNavigate } from "react-router-dom";
@@ -12,12 +13,17 @@ function Video() {
   const [isLiked_comment, setIsLike_comment] = React.useState(false);
   const [issubscribe, setissubscribe] = React.useState(false);
   const navigate = useNavigate();
-
+  const { isAuthenticated, user, accessToken } = useSelector(
+    (state) => state.auth
+  );
   const [comment, setComment] = React.useState({});
   const [channelVideo, setChannelVideo] = React.useState({});
   const { id } = useParams();
-  const tokens =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJiYTgyMjdkNjcxZmQzNGE2MWFiYTMiLCJlbWFpbCI6ImRzZmRzZmRzQDQzMjMzIiwidXNlcm5hbWUiOiJyb2NreTIyMjMzMyIsImZ1bGxOYW1lIjoiU2h1YmhhbmthciBTd2FpbiIsImlhdCI6MTcxNDIyNzgwMiwiZXhwIjoxNzE0MzE0MjAyfQ.hsOzdmViVIbj5MOrnIz0cEtGu2ulE2NcKBcL7vPqeUs";
+  const tokens = accessToken;
+  if(!isAuthenticated) {
+    navigate("/login");
+    return null;
+  }
 
   React.useEffect(() => {
     const videoData = async () => {
@@ -325,9 +331,11 @@ function Video() {
                           />
                         </svg>
                       </button>
-                      <button onClick={()=>{
-                        toast.success("disliked")
-                      }}>
+                      <button
+                        onClick={() => {
+                          toast.success("disliked");
+                        }}
+                      >
                         <svg
                           className="w-6 h-6 text-gray-800 dark:text-white"
                           aria-hidden="true"
