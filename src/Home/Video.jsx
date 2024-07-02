@@ -39,6 +39,8 @@ function Video() {
         //   console.log(response.data.data);
         setVideo(response.data.data);
         setOwner(response.data.data.owner);
+        
+      
         toast.success("Video saved successfully for display");
       } catch (error) {
         toast.error(error.message);
@@ -47,7 +49,9 @@ function Video() {
 
     comments();
     videoData();
+    
   }, [id]);
+  user.watchHistory.push(video._id)
   const comments = async () => {
     try {
       const response = await axios.get(
@@ -135,6 +139,7 @@ function Video() {
     }
   };
 
+  
   return (
     <>
       <div className="w-full flex flex-col lg:flex-row lg:p-0 h-auto p-7 gap-2 bg-black">

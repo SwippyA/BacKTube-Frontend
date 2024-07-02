@@ -12,6 +12,7 @@ import Register from "./Register/Register.jsx";
 import Login from "./Login/Login.jsx";
 import Video from "./Home/Video.jsx";
 import Home from "./Home/Home.jsx";
+import History from "./Home/History.jsx"
 import Forget_password_email from "./Login/Forget_password_email.jsx";
 import Forget_password_setPassword from "./Login/Forget_password_setpassword.jsx";
 import { store, persistor } from "../src/Store/Store.js";
@@ -34,6 +35,7 @@ const routers = createBrowserRouter(
       <Route path="account" element={<Account />} />
       <Route path="video/:id" element={<Video />} />
       <Route path="user/:id" element={<User_Profile />} />
+      <Route path="history" element={<History />} />
       <Route path="*" element={<div>Page not found</div>} />
     </Route>
   )
