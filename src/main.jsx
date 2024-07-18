@@ -20,7 +20,8 @@ import { Provider } from "react-redux";
 import Account from "./Home/Account.jsx";
 import User_Profile from "./Home/User_Profile.jsx";
 import { PersistGate } from "redux-persist/integration/react";
-import OtherUser from "./Home/Otheruser.jsx";
+import Error404 from "./Home/Error404.jsx";
+// import OtherUser from "./Home/Otheruser.jsx";
 
 const routers = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +39,7 @@ const routers = createBrowserRouter(
       <Route path="user/:id" element={<User_Profile />} />
       <Route path="history" element={<History />} />
       {/* <Route path="account/:id" element={<OtherUser />} /> */}
-      <Route path="*" element={<div>Page not found</div>} />
+      <Route path="*" element={<Error404/>} />
     </Route>
   )
 );
