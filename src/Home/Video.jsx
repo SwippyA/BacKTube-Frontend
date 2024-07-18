@@ -20,7 +20,7 @@ function Video() {
   const [channelVideo, setChannelVideo] = React.useState({});
   const { id } = useParams();
   const tokens = accessToken;
-  if(!isAuthenticated) {
+  if (!isAuthenticated) {
     navigate("/login");
     return null;
   }
@@ -39,8 +39,7 @@ function Video() {
         //   console.log(response.data.data);
         setVideo(response.data.data);
         setOwner(response.data.data.owner);
-        
-      
+
         toast.success("Video saved successfully for display");
       } catch (error) {
         toast.error(error.message);
@@ -49,9 +48,8 @@ function Video() {
 
     comments();
     videoData();
-    
   }, [id]);
-  user.watchHistory.push(video._id)
+  user.watchHistory.push(video._id);
   const comments = async () => {
     try {
       const response = await axios.get(
@@ -139,7 +137,6 @@ function Video() {
     }
   };
 
-  
   return (
     <>
       <div className="w-full flex flex-col lg:flex-row lg:p-0 h-auto p-7 gap-2 bg-black">
@@ -286,11 +283,13 @@ function Video() {
                   key={comment._id}
                   className="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border-b-2 border-purple-600"
                 >
-                  <img
-                    src={comment.owner.avatar}
-                    alt=""
-                    className="w-10 h-10 rounded-full lg:w-6 lg:h-6"
-                  />
+                  <Link to={`/user/${comment.owner._id}`}>
+                    <img
+                      src={comment.owner.avatar}
+                      alt=""
+                      className="w-10 h-10 rounded-full lg:w-6 lg:h-6"
+                    />
+                  </Link>
                   <div className="flex flex-col   p-2 w-full">
                     <p className=" font-semibold  text-lg text-white">
                       {comment.owner.username}

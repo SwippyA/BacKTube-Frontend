@@ -106,11 +106,14 @@ function Account() {
                   {formatDuration(video.duration)}
                 </span>
                 <div className="flex items-center gap-3">
-                  <img
-                    src={video.owner.avatar}
-                    alt=""
-                    className="w-[40px] h-[40px] cursor-pointer rounded-full"
-                  />
+                  <Link to={`/user/${video.owner._id}`}>
+                    <img
+                      src={video.owner.avatar}
+                      alt=""
+                      className="w-[40px] h-[40px] cursor-pointer rounded-full"
+                    />
+                  </Link>
+
                   <h1 className="text-lg w-fit font-semibold text-white">
                     {video.title}
                   </h1>

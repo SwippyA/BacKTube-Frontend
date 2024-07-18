@@ -16,8 +16,12 @@ function History() {
     const fetchWatchHistory = async () => {
       const videos = [];
       const fetchedIds = new Set();
-      for (let i = 0; i < user.watchHistory.length; i++) {
-        const id = user.watchHistory[i];
+
+      // Filter out invalid IDs
+      const validWatchHistory = user.watchHistory.filter((id) => id);
+
+      for (let i = 0; i < validWatchHistory.length; i++) {
+        const id = validWatchHistory[i];
         if (!fetchedIds.has(id)) {
           try {
             const response = await axios.get(
@@ -31,7 +35,7 @@ function History() {
             videos.push(response.data.data);
             fetchedIds.add(id);
           } catch (error) {
-            toast.error(error.message);
+            toast.error(`Failed to load video with ID ${id}`);
           }
         }
       }
@@ -71,11 +75,13 @@ function History() {
                 {formatDuration(video.duration)}
               </span>
               <div className="flex items-center gap-3">
-                <img
-                  src={video.owner.avatar}
-                  alt=""
-                  className="w-[40px] h-[40px] cursor-pointer rounded-full"
-                />
+                <Link to={`/user/${video.owner._id}`}>
+                  <img
+                    src={video.owner.avatar}
+                    alt=""
+                    className="w-[40px] h-[40px] cursor-pointer rounded-full"
+                  />
+                </Link>
                 <h1 className="text-lg w-fit font-semibold text-white">
                   {video.title}
                 </h1>
