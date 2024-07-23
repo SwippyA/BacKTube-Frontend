@@ -21,6 +21,9 @@ import Account from "./Home/Account.jsx";
 import User_Profile from "./Home/User_Profile.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import Error404 from "./Home/Error404.jsx";
+import Subscription from "./Home/Subscription.jsx";
+import Edit_Profile from "./Home/Edit_Profile.jsx";
+import UploadVideo from "./Home/UploadVideo.jsx";
 // import OtherUser from "./Home/Otheruser.jsx";
 
 const routers = createBrowserRouter(
@@ -38,8 +41,11 @@ const routers = createBrowserRouter(
       <Route path="video/:id" element={<Video />} />
       <Route path="user/:id" element={<User_Profile />} />
       <Route path="history" element={<History />} />
+      <Route path="subscriptions" element={<Subscription />} />
+      <Route path="editProfile" element={<Edit_Profile />} />
+      <Route path="upload_video" element={<UploadVideo />} />
       {/* <Route path="account/:id" element={<OtherUser />} /> */}
-      <Route path="*" element={<Error404/>} />
+      <Route path="*" element={<Error404 />} />
     </Route>
   )
 );

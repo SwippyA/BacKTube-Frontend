@@ -18,7 +18,8 @@ function History() {
       const fetchedIds = new Set();
 
       // Filter out invalid IDs
-      const validWatchHistory = user.watchHistory.filter((id) => id);
+      const validWatchHistory = user.watchHistory;
+      console.log(validWatchHistory);
 
       for (let i = 0; i < validWatchHistory.length; i++) {
         const id = validWatchHistory[i];

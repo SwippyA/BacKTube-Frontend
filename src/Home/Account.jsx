@@ -79,12 +79,12 @@ function Account() {
             </p>
           </div>
           <div className="flex gap-4">
-            <button className="text-white text-sm px-7 py-2 rounded-2xl font-semibold bg-gray-800 hover:bg-purple-700 duration-200">
+            <Link to={"/editProfile"} className="text-white text-sm px-7 py-2 rounded-2xl font-semibold bg-gray-800 hover:bg-purple-700 duration-200">
               Edit Your Profile
-            </button>
-            <button className="text-white text-sm px-7 py-2 rounded-2xl duration-200 hover:bg-purple-700 font-semibold bg-gray-800">
+            </Link>
+            <Link to={"/upload_video"} className="text-white text-sm px-7 py-2 rounded-2xl duration-200 hover:bg-purple-700 font-semibold bg-gray-800">
               Upload Video
-            </button>
+            </Link>
           </div>
         </div>
       </div>
