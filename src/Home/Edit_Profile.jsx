@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login, logout } from "../Store/Reducer/Login.js";
 
 function Edit_Profile() {
+  const { isAuthenticated, user, accessToken } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    password: "",
+    oldPassword: "",
+    newPassword: "",
     coverImage: null,
     avatar: null,
   });
@@ -28,15 +37,89 @@ function Edit_Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { fullName, email, password, coverImage, avatar } = formData;
+    const { fullName, email, oldPassword, newPassword, coverImage, avatar } = formData;
 
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long");
+    if (newPassword.length > 0 && newPassword.length < 8) {
+      toast.error("New password must be at least 8 characters long");
       return;
     }
-     
-    
 
+    try {
+      if (fullName || email) await updateFullNameAndEmail(fullName, email);
+      if (oldPassword && newPassword) await updatePassword(oldPassword, newPassword);
+      if (coverImage) await updateCoverImage(coverImage);
+      if (avatar) await updateAvatar(avatar);
+
+      toast.success("Profile updated successfully");
+
+      // Prepare login data
+      const loginData = {
+        email: email || user.email,
+        password: newPassword || oldPassword, 
+        username: user.username
+        
+        // Use newPassword if available
+      };
+
+      // Attempt login with updated data
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/login",
+        loginData
+      );
+      
+      toast.success(response.data.message);
+      await dispatch(login(response.data.data)); // Dispatch login action
+      navigate("/"); // Navigate to the home page after successful login
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error updating profile");
+      console.error(error);
+    }
+  };
+
+  const updateFullNameAndEmail = async (fullName, email) => {
+    await axios.patch(
+      "http://localhost:8000/api/v1/users/update-account",
+      { fullName, email },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  };
+
+  const updatePassword = async (oldPassword, newPassword) => {
+    await axios.post(
+      "http://localhost:8000/api/v1/users/change-password",
+      { oldPassword, newPassword },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  };
+
+  const updateCoverImage = async (coverImage) => {
+    const formData = new FormData();
+    formData.append("coverImage", coverImage);
+    await axios.post(
+      "http://localhost:8000/api/v1/users/cover-image",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  };
+
+  const updateAvatar = async (avatar) => {
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+    await axios.post(
+      "http://localhost:8000/api/v1/users/avatar",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
   };
 
   return (
@@ -47,10 +130,7 @@ function Edit_Profile() {
       <div className="w-full max-w-md bg-gray-800 p-5 rounded-lg">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              className="block text-white text-sm font-bold mb-2"
-              htmlFor="fullName"
-            >
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="fullName">
               Full Name
             </label>
             <input
@@ -63,10 +143,7 @@ function Edit_Profile() {
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-white text-sm font-bold mb-2"
-              htmlFor="email"
-            >
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input
@@ -79,26 +156,33 @@ function Edit_Profile() {
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-white text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Change Password
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="oldPassword">
+              Old Password
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="oldPassword"
+              name="oldPassword"
+              value={formData.oldPassword}
               onChange={handleChange}
               className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-700"
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-white text-sm font-bold mb-2"
-              htmlFor="coverImage"
-            >
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="newPassword">
+              New Password
+            </label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
+              className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-700"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="coverImage">
               Change Cover Image
             </label>
             <input
@@ -111,10 +195,7 @@ function Edit_Profile() {
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-white text-sm font-bold mb-2"
-              htmlFor="avatar"
-            >
+            <label className="block text-white text-sm font-bold mb-2" htmlFor="avatar">
               Change Avatar
             </label>
             <input
