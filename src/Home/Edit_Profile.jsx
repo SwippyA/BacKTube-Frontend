@@ -56,7 +56,7 @@ function Edit_Profile() {
       const loginData = {
         email: email || user.email,
         password: newPassword || oldPassword, 
-        username: user.username
+        username: user.username || user.username 
         
         // Use newPassword if available
       };
@@ -68,7 +68,7 @@ function Edit_Profile() {
       );
       
       toast.success(response.data.message);
-      await dispatch(login(response.data.data)); // Dispatch login action
+       dispatch(login(response.data.data)); // Dispatch login action
       navigate("/"); // Navigate to the home page after successful login
     } catch (error) {
       toast.error(error.response?.data?.message || "Error updating profile");

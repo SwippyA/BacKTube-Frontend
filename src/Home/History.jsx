@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Loading from '../Utilty/Loading'; // Import the Loading component
 
 function History() {
   const { isAuthenticated, user, accessToken } = useSelector(
@@ -61,7 +62,7 @@ function History() {
       <hr />
       <div className="w-full h-fit bg-black flex flex-wrap gap-7 p-4">
         {loading ? (
-          <div className="text-white text-2xl">Loading...</div>
+          <Loading /> // Show Loading component while data is loading
         ) : (
           videoData.map((video) => (
             <div key={video._id} className="p-3 relative">
