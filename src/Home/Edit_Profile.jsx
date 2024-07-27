@@ -101,7 +101,7 @@ function Edit_Profile() {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`, 
         },
       }
     );

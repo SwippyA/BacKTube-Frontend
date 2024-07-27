@@ -59,7 +59,9 @@ function Account() {
 
   return (
     <div className="w-full h-fit flex flex-col bg-gray-950 p-6">
-      <div className="w-full h-fit p-6 flex flex-col md:flex-row items-center justify-between gap-2">
+      <div className="w-full h-fit p-6 flex flex-col md:flex-row items-center justify-between gap-2"
+     
+      >
         <img
           src={user.avatar}
           alt=""
