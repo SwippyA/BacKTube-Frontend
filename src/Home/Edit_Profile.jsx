@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, logout } from "../Store/Reducer/Login.js";
+import Loading from "../Utilty/Loading.jsx";
 
 function Edit_Profile() {
   const { isAuthenticated, user, accessToken } = useSelector(
@@ -45,7 +46,7 @@ function Edit_Profile() {
     }
 
     try {
-      if (fullName || email) await updateFullNameAndEmail(fullName, email);
+      if (fullName && email) await updateFullNameAndEmail(fullName, email);
       if (oldPassword && newPassword) await updatePassword(oldPassword, newPassword);
       if (coverImage) await updateCoverImage(coverImage);
       if (avatar) await updateAvatar(avatar);
@@ -123,7 +124,7 @@ function Edit_Profile() {
   };
 
   return (
-    <div className="h-fit w-screen flex flex-col justify-center items-center bg-gray-900 p-5">
+    <div className="h-fit w-full flex flex-col justify-center items-center bg-gray-900 p-5">
       <h1 className="text-4xl p-3 text-white font-bold hover:text-purple-700">
         Edit Profile
       </h1>

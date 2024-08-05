@@ -72,7 +72,7 @@ function UploadVideo() {
   };
 
   return (
-    <div className="h-fit w-full flex flex-col justify-center items-center bg-gray-900 p-5">
+    <div className="h-screen w-full flex flex-col justify-center items-center bg-gray-900 p-5">
       {loading ? (
         <Loading />
       ) : (
