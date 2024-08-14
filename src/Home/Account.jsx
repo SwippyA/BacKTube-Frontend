@@ -56,6 +56,7 @@ function Account() {
     const seconds = Math.floor(duration % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
+  console.log(data);
 
   return (
     <div className="w-full h-fit flex flex-col bg-gray-950 p-6">
@@ -74,10 +75,10 @@ function Account() {
           </div>
           <div className="flex gap-4">
             <p className="text-gray-500 text-sm">
-              Subscriber: {data?.subscriberCount || 0}
+              Subscriber: {data?.TotalSubscribers || 0}
             </p>
             <p className="text-gray-500 text-sm">
-              Total Videos: {data?.totalVideos || 0}
+              Total Videos: {data?.TotalVideos || 0}
             </p>
           </div>
           <div className="flex gap-4">
