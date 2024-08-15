@@ -26,7 +26,7 @@ function Subscription() {
         setSubscriptions(response.data.data);
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch subscriptions");
+        setError("NO  subscriptions found. ");
         console.error("Error fetching subscriptions:", error);
         setLoading(false);
       }

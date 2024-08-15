@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import ReactPlayer from "react-player";
 import { Link, NavLink, useParams, useNavigate } from "react-router-dom";
@@ -35,8 +35,11 @@ function Video() {
             headers: { Authorization: `Bearer ${tokens}` },
           }
         );
-        setVideo(videoResponse.data.data);
-        setOwner(videoResponse.data.data.owner);
+        const fetchedVideo = videoResponse.data.data.video;
+        setVideo(fetchedVideo);
+        setOwner(fetchedVideo.owner);
+        setIsLiked(fetchedVideo.isLiked);
+        setIsSubscribed(fetchedVideo.owner.isSubscribed);
 
         const commentsResponse = await axios.get(
           `http://localhost:8000/api/v1/Comments/${id}`,
@@ -74,7 +77,7 @@ function Video() {
 
     fetchData();
     fetchChannelVideos();
-  }, [id, tokens ]);
+  }, [id, tokens]);
 
   user.watchHistory.push(video._id);
 
@@ -145,7 +148,7 @@ function Video() {
       toast.error("Error submitting comment:", error.message);
     }
   };
-
+  console.log(comments);
   return (
     <div className="w-full h-fit flex flex-col lg:flex-row lg:p-0  p-7 gap-2 bg-black">
       <div className="w-full lg:w-3/5 mt-8 p-5 flex flex-col gap-3">
@@ -212,147 +215,127 @@ function Video() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"
+                  d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19h1a1.5 1.5 0 0 0 1.5-1.5V13m0 0h7.125c.243 0 .472.085.642.242a.844.844 0 0 1 .256.656V19.5a1.5 1.5 0 0 0 3 0v-6.823a1.64 1.64 0 0 0-.384-1.279 1.549 1.549 0 0 0-.537-.406 1.6 1.6 0 0 0-1.466.087 1.6 1.6 0 0 0-.582.628 22.323 22.323 0 0 1-3.958 5.084C8.416 10.457 7.889 10 7 10Z"
                 />
               </svg>
             )}
-            Like
+            <span className="ml-2">{isLiked ? "Unlike" : "Like"}</span>
           </button>
-          <button
-            className="flex items-center m-1 text-white"
-            onClick={() => {
-              toast.success("Video saved successfully for dislike.");
-            }}
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
+        </div>
+        <div>
+          <form onSubmit={handleCommentSubmit} className="flex flex-col">
+            <textarea
+              className="w-full p-2 mt-2 text-white bg-gray-800 rounded-lg"
+              rows="4"
+              placeholder="Add a comment..."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            ></textarea>
+            <button
+              type="submit"
+              className="self-end mt-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded transition-colors duration-300"
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 13c-.89.086-1.416.543-2.156 1.057a22.323 22.323 0 0 0-3.958 5.084 1.6 1.6 0 0 1-.582.628 1.549 1.549 0 0 1-1.466.087 1.6 1.6 0 0 1-.537-.406 1.64 1.64 0 0 1-.384-1.279l1.388-4.114M17 13h3v6.5A1.5 1.5 0 0 1 18.5 21v0A1.5 1.5 0 0 1 17 19.5V13Zm-6.5 1H5.585a1.248 1.248 0 0 0-.626-.15 1.25 1.25 0 0 0-.637.572 1.124 1.124 0 0 0-.215 1.673l2.098 6.4C6.462 21.52 6.632 22 7.88 22c2.303 0 4.79-.943 6.67-1.475"
-              />
-            </svg>
-            Dislike
-          </button>
+              Submit Comment
+            </button>
+          </form>
         </div>
-        <p className="text-gray-300 text-sm">{video.description}</p>
-        <form
-          onSubmit={handleCommentSubmit}
-          className="flex flex-col gap-4 my-3"
-        >
-          <textarea
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            className="w-full h-16 rounded-2xl p-3 bg-[#202020] text-white"
-            placeholder="Add a comment..."
-            required
-          ></textarea>
-          <button
-            type="submit"
-            className="bg-purple-600 text-white font-bold py-2 rounded-xl hover:bg-purple-700 transition-colors duration-300"
-          >
-            Comment
-          </button>
-        </form>
-        {comments.map((comment) => (
-        <div
-          key={comment._id}
-              className="flex items-start border-b border-gray-700 pb-2 mb-2"
-        >
-            <img
-              src={comment.owner.avatar}
-                alt={comment.owner.username}
-                className="w-8 h-8 rounded-full mr-2"
-            />
-              <div className="text-white">
-                <p className="font-bold">{comment.owner.username}</p>
-                <p>{comment.content}</p>
-          <button
-                  className="text-gray-400 hover:text-white"
-            onClick={() => handleLikeClick(comment._id)}
-          >
-            {commentLikes[comment._id] ? (
-              <svg
-                className="w-4 h-4"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                      <path d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" />
-              </svg>
-            ) : (
-              <svg
-                className="w-4 h-4"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                        d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19h1a1.5 1.5 0 0 0 1.5-1.5V13m0 0h7.125c.243 0 .472.085.642.242a.844.844 0 0 1 .256.656V19.5a1.5 1.5 0 0 0 3 0v-6.823a1.64 1.64 0 0 0-.384-1.279 1.549 1.549 0 0 0-.537-.406 1.6 1.6 0 0 0-1.466.087 1.6 1.6 0 0 0-.582.628 22.323 22.323 0 0 1-3.958 5.084C8.416 10.457 7.889 10 7 10Z"
-                />
-              </svg>
-            )}
-            Like
-          </button>
-        </div>
-      ))}
-
-      </div>
-      <div className="text-white w-fit lg:w-2/5 p-2 mt-8 bg-slate-950 rounded-md ">
-        {Channel_Videos.map((video, index) => (
-          <div key={index} className="w-fit h-auto flex gap-3 my-4 px-2">
-            <Link to={`/video/${video._id}`}>
+        <div className="flex flex-col space-y-4">
+          {comments.map((comment) => (
+            <div
+              key={comment._id}
+              className="flex items-start border-b border-gray-700 pb-4"
+            >
               <img
-                src={video.thumbnail}
-                alt=""
-                className=" w-40 h-28 lg:w-[210px]  rounded-xl  cursor-pointer "
+                src={comment.owner.avatar}
+                alt={comment.owner.username}
+                className="w-10 h-10 rounded-full mr-3 object-cover"
               />
-            </Link>
-
-            <div className="flex flex-col justify-between">
-              <h1 className="text-mm font-semibold lg:text-lg">
-                {video.title}
-              </h1>
-              <div>
-                <div className="flex items-center">
-                  <Link
-                    to={`/user/${video.owner._id}`}
-                    className=" cursor-pointer hover:text-purple-700"
-                  >
-                    {video.owner.username}
-                  </Link>
-                </div>
-                <div className="flex items-center">
-                  <span className=" text-gray-700 text-sm">{video.views}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className=" text-gray-700 text-sm">
-                    {new Date(video.createdAt).toLocaleDateString()}
+              <div className="flex-1 text-white">
+                <p className="font-bold text-lg">{comment.owner.username}</p>
+                <p className="text-sm mt-1">{comment.content}</p>
+                <button
+                  className="flex items-center mt-2 text-gray-400 hover:text-white transition-colors duration-200"
+                  onClick={() => handleLikeClick(comment._id)}
+                >
+                  {commentLikes[comment._id] ? (
+                    <svg
+                      className="w-5 h-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M15.03 9.684h3.965c.322 0 .64.08.925.232.286.153.532.374.717.645a2.109 2.109 0 0 1 .242 1.883l-2.36 7.201c-.288.814-.48 1.355-1.884 1.355-2.072 0-4.276-.677-6.157-1.256-.472-.145-.924-.284-1.348-.404h-.115V9.478a25.485 25.485 0 0 0 4.238-5.514 1.8 1.8 0 0 1 .901-.83 1.74 1.74 0 0 1 1.21-.048c.396.13.736.397.96.757.225.36.32.788.269 1.211l-1.562 4.63ZM4.177 10H7v8a2 2 0 1 1-4 0v-6.823C3 10.527 3.527 10 4.176 10Z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-5 h-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19h1a1.5 1.5 0 0 0 1.5-1.5V13m0 0h7.125c.243 0 .472.085.642.242a.844.844 0 0 1 .256.656V19.5a1.5 1.5 0 0 0 3 0v-6.823a1.64 1.64 0 0 0-.384-1.279 1.549 1.549 0 0 0-.537-.406 1.6 1.6 0 0 0-1.466.087 1.6 1.6 0 0 0-.582.628 22.323 22.323 0 0 1-3.958 5.084C8.416 10.457 7.889 10 7 10Z"
+                      />
+                    </svg>
+                  )}
+                  <span className="ml-2 text-sm">
+                    {commentLikes[comment._id] ? "Unlike" : "Like"}
                   </span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="w-full lg:w-2/5 mt-8 p-5 flex flex-col gap-4 overflow-y-scroll">
+        <h2 className="text-white text-lg font-bold mb-4">Related Videos</h2>
+        {Channel_Videos.filter((vid) => vid._id !== video._id) // Exclude the current video
+          .map((vid, index) => (
+            <div key={vid._id} className="w-fit h-auto flex gap-3 my-1 px-2">
+              <Link to={`/video/${vid._id}`}>
+                <img
+                  src={vid.thumbnail}
+                  alt={vid.title}
+                  className="w-40  h-32 lg:w-[210px] rounded-xl cursor-pointer"
+                />
+              </Link>
+              <div className="flex flex-col justify-between">
+                <h1 className=" text-white text-mm font-semibold lg:text-lg">
+                  {vid.title}
+                </h1>
+                <img
+                  src={vid.owner.avatar}
+                  alt={`${vid.owner.username}'s avatar`}
+                  className="w-10 h-10 lg:w-8 lg:h-8 rounded-full  object-cover"
+                />
+
+                <div>
+                  <div className="flex items-center">
+                    <Link
+                      to={`/user/${vid.owner._id}`}
+                      className=" text-white cursor-pointer hover:text-purple-700"
+                    >
+                      {vid.owner.username}
+                    </Link>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-gray-700 text-sm">{vid.views}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-gray-700 text-sm">
+                      {new Date(vid.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
