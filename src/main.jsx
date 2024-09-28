@@ -24,7 +24,7 @@ import Error404 from "./Home/Error404.jsx";
 import Subscription from "./Home/Subscription.jsx";
 import Edit_Profile from "./Home/Edit_Profile.jsx";
 import UploadVideo from "./Home/UploadVideo.jsx";
-// import OtherUser from "./Home/Otheruser.jsx";
+import UpdateVideo from "./Home/updateVideo.jsx";
 
 const routers = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +44,7 @@ const routers = createBrowserRouter(
       <Route path="subscriptions" element={<Subscription />} />
       <Route path="editProfile" element={<Edit_Profile />} />
       <Route path="upload_video" element={<UploadVideo />} />
+      <Route path="update_video/:id" element={<UpdateVideo />} />
       {/* <Route path="account/:id" element={<OtherUser />} /> */}
       <Route path="*" element={<Error404 />} />
     </Route>

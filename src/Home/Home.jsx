@@ -16,6 +16,7 @@ function Home() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
   const dispatch = useDispatch();
   console.log(isAuthenticated);
   console.log(user);
@@ -25,6 +26,9 @@ function Home() {
     const seconds = Math.floor(duration % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
+  const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id); // Toggle menu visibility
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -250,6 +254,77 @@ function Home() {
                   className="w-full md:w-[320px] h-[180px] hover:shadow-lg hover:shadow-purple-700 rounded-lg mb-3 cursor-pointer"
                 />
               </Link>
+              <div className="relative top-1 ">
+                <button
+                  onClick={() => toggleMenu(video._id)}
+                  className="text-white absolute right-0 top-2 p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12 12.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12 18.75a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                    />
+                  </svg>
+                </button>
+
+                {openMenuId === video._id && (
+                  <div className="absolute right-0 mt-8 w-48 bg-purple-700 rounded-md shadow-lg z-10">
+                    <ul className="py-1">
+                      {video.owner._id === user._id ? (
+                        <>
+                          <li>
+                            <Link to={`/update_video/${video._id}`}
+                              className="block px-4 py-2 text-sm text-white font-semibold hover:bg-gray-100 hover:text-black w-full text-left"
+                              onClick={() => {
+                                console.log(
+                                  "Edit option clicked for",
+                                  video._id
+                                );
+                              }}
+                            >
+                              Edit
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={`/account`}
+                              className="block px-4 py-2 text-sm text-white font-semibold hover:bg-gray-100 hover:text-black w-full text-left"
+                              onClick={() => {
+                                console.log(
+                                  "Delete option clicked for",
+                                  video._id
+                                );
+                              }}
+                            >
+                              Delete
+                            </Link>
+                          </li>
+                        </>
+                      ) : (
+                        ""
+                      )}
+
+                      <li>
+                        <button
+                          className="block px-4 py-2 text-sm text-white font-semibold hover:bg-gray-100 hover:text-black w-full text-left"
+                          onClick={() => {
+                            console.log("Share option clicked for", video._id);
+                          }}
+                        >
+                          Share
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
               <span className=" bg-black rounded-md text-white text-sm px-1 py-0.5   absolute bottom-[70px] right-5">
                 {formatDuration(video.duration)}
               </span>

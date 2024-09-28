@@ -23,7 +23,7 @@ function Header() {
             alt="Logo"
             className="w-16 h-16"
           />
-          <span className="ml-2 text-3xl relative right-5">Backtube</span>
+          <span className="ml-2 text-3xl relative right-4">Backtube</span>
         </div>
 
         {/* Search Bar */}
