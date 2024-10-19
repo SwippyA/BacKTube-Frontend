@@ -135,7 +135,7 @@ function Edit_Profile() {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="fullName">
-              Full Name
+              Full Name*
             </label>
             <input
               type="text"
@@ -148,7 +148,7 @@ function Edit_Profile() {
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
-              Email
+              Email*
             </label>
             <input
               type="email"
@@ -161,7 +161,7 @@ function Edit_Profile() {
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="oldPassword">
-              Old Password
+              Old Password*
             </label>
             <input
               type="password"
@@ -174,7 +174,7 @@ function Edit_Profile() {
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="newPassword">
-              New Password
+              New Password*
             </label>
             <input
               type="password"
@@ -200,7 +200,7 @@ function Edit_Profile() {
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="avatar">
-              Change Avatar
+              Change Avatar*
             </label>
             <input
               type="file"

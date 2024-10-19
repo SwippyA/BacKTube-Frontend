@@ -105,7 +105,7 @@ function UpdateVideo() {
           {/* Title Input */}
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
-              Video Title
+              Video Title*
             </label>
             <input
               type="text"
@@ -122,7 +122,7 @@ function UpdateVideo() {
           {/* Description Input */}
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="description">
-              Video Description
+              Video Description*
             </label>
             <textarea
               id="description"
@@ -139,7 +139,7 @@ function UpdateVideo() {
           {/* Thumbnail Input */}
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="thumbnail">
-              Video Thumbnail
+              Video Thumbnail*
             </label>
             <input
               type="file"

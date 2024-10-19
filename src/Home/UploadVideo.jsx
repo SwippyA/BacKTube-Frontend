@@ -90,7 +90,7 @@ function UploadVideo() {
                   className="block text-white text-sm font-bold mb-2"
                   htmlFor="title"
                 >
-                  Title
+                  Title*
                 </label>
                 <input
                   type="text"
@@ -106,7 +106,7 @@ function UploadVideo() {
                   className="block text-white text-sm font-bold mb-2"
                   htmlFor="description"
                 >
-                  Description
+                  Description*
                 </label>
                 <textarea
                   id="description"
@@ -122,7 +122,7 @@ function UploadVideo() {
                   className="block text-white text-sm font-bold mb-2"
                   htmlFor="videoFile"
                 >
-                  Video (MP4, AVI, MOV)
+                  Video (MP4, AVI, MOV)*
                 </label>
                 <input
                   type="file"
@@ -138,7 +138,7 @@ function UploadVideo() {
                   className="block text-white text-sm font-bold mb-2"
                   htmlFor="thumbnail"
                 >
-                  Thumbnail (JPG, PNG, GIF)
+                  Thumbnail (JPG, PNG, GIF)*
                 </label>
                 <input
                   type="file"
