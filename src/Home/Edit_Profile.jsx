@@ -65,7 +65,7 @@ function Edit_Profile() {
 
       // Attempt login with updated data
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/login",
+        "https://backtube-1.onrender.com/api/v1/users/login",
         loginData
       );
       
@@ -80,7 +80,7 @@ function Edit_Profile() {
 
   const updateFullNameAndEmail = async (fullName, email) => {
     await axios.patch(
-      "http://localhost:8000/api/v1/users/update-account",
+      "https://backtube-1.onrender.com/api/v1/users/update-account",
       { fullName, email },
       { headers: { Authorization: `Bearer ${accessToken}` } }
     );
@@ -88,7 +88,7 @@ function Edit_Profile() {
 
   const updatePassword = async (oldPassword, newPassword) => {
     await axios.post(
-      "http://localhost:8000/api/v1/users/change-password",
+      "https://backtube-1.onrender.com/api/v1/users/change-password",
       { oldPassword, newPassword },
       { headers: { Authorization: `Bearer ${accessToken}` } }
     );
@@ -98,7 +98,7 @@ function Edit_Profile() {
     const formData = new FormData();
     formData.append("coverImage", coverImage);
     await axios.post(
-      "http://localhost:8000/api/v1/users/cover-image",
+      "https://backtube-1.onrender.com/api/v1/users/cover-image",
       formData,
       {
         headers: {
@@ -113,7 +113,7 @@ function Edit_Profile() {
     const formData = new FormData();
     formData.append("avatar", avatar);
     await axios.post(
-      "http://localhost:8000/api/v1/users/avatar",
+      "https://backtube-1.onrender.com/api/v1/users/avatar",
       formData,
       {
         headers: {

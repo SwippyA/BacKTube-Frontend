@@ -31,7 +31,7 @@ function Video() {
     const fetchData = async () => {
       try {
         const videoResponse = await axios.get(
-          `http://localhost:8000/api/v1/videos/${id}`,
+          `https://backtube-1.onrender.com/api/v1/videos/${id}`,
           {
             headers: { Authorization: `Bearer ${tokens}` },
           }
@@ -43,7 +43,7 @@ function Video() {
         setIsSubscribed(fetchedVideo.owner.isSubscribed);
 
         const commentsResponse = await axios.get(
-          `http://localhost:8000/api/v1/Comments/${id}`,
+          `https://backtube-1.onrender.com/api/v1/Comments/${id}`,
           {
             headers: { Authorization: `Bearer ${tokens}` },
           }
@@ -59,7 +59,7 @@ function Video() {
     const fetchChannelVideos = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/users/all_Videos`,
+          `https://backtube-1.onrender.com/api/v1/users/all_Videos`,
           {
             headers: { Authorization: `Bearer ${tokens}` },
           }
@@ -85,7 +85,7 @@ function Video() {
   const handleLikeClick = async (commentId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Likes/toggle/c/${commentId}`,
+        `https://backtube-1.onrender.com/api/v1/Likes/toggle/c/${commentId}`,
         null,
         {
           headers: { Authorization: `Bearer ${tokens}` },
@@ -104,7 +104,7 @@ function Video() {
   const handleLikeVideo = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Likes/toggle/v/${id}`,
+        `https://backtube-1.onrender.com/api/v1/Likes/toggle/v/${id}`,
         null,
         {
           headers: { Authorization: `Bearer ${tokens}` },
@@ -120,7 +120,7 @@ function Video() {
   const handleToggleSubscribe = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Subscription/c/${owner._id}`,
+        `https://backtube-1.onrender.com/api/v1/Subscription/c/${owner._id}`,
         null,
         {
           headers: { Authorization: `Bearer ${tokens}` },
@@ -137,7 +137,7 @@ function Video() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/Comments/${id}`,
+        `https://backtube-1.onrender.com/api/v1/Comments/${id}`,
         { content: commentText },
         {
           headers: { Authorization: `Bearer ${tokens}` },

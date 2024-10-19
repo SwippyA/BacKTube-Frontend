@@ -33,7 +33,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/users/all_Videos"
+          "https://backtube-1.onrender.com/api/v1/users/all_Videos"
         );
         setData(response.data.data);
         toast.success("get all videos");

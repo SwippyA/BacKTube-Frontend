@@ -48,7 +48,7 @@ function UploadVideo() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/videos/",
+        "https://backtube-1.onrender.com/api/v1/videos/",
         data,
         {
           headers: {

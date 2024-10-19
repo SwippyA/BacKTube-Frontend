@@ -19,7 +19,7 @@ function Account() {
 
   const deleteVideo = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/videos/${id}`, {
+      await axios.delete(`https://backtube-1.onrender.com/api/v1/videos/${id}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       toast.success("Deleted video successfully");
@@ -38,7 +38,7 @@ function Account() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/dashboard/stats",
+          "https://backtube-1.onrender.com/api/v1/dashboard/stats",
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
@@ -53,7 +53,7 @@ function Account() {
     const getUserVideos = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/videos/",
+          "https://backtube-1.onrender.com/api/v1/videos/",
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }

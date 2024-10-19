@@ -30,13 +30,13 @@ function User_Profile() {
       }
     };
 
-    fetchData(`http://localhost:8000/api/v1/dashboard/stats/${id}`, setData);
+    fetchData(`https://backtube-1.onrender.com/api/v1/dashboard/stats/${id}`, setData);
     fetchData(
-      `http://localhost:8000/api/v1/dashboard/videos/${id}`,
+      `https://backtube-1.onrender.com/api/v1/dashboard/videos/${id}`,
       setVideoData
     );
     fetchData(
-      `http://localhost:8000/api/v1/users/userGetById/${id}`,
+      `https://backtube-1.onrender.com/api/v1/users/userGetById/${id}`,
       setUserProfile
     );
   }, [isAuthenticated, accessToken, id]);

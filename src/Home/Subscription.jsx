@@ -19,7 +19,7 @@ function Subscription() {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/Subscription/c/${user._id}`,
+          `https://backtube-1.onrender.com/api/v1/Subscription/c/${user._id}`,
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }

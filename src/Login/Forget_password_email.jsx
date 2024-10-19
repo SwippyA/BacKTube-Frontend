@@ -11,7 +11,7 @@ function Forget_password_email() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/email",
+        "https://backtube-1.onrender.com/api/v1/users/email",
         { email },
         {
           headers: {

@@ -21,7 +21,7 @@ function Forget_password_setPassword() {
     try {
       // Send POST request to update password
       const response = await axios.post(
-        `http://localhost:8000/api/v1/users/Forget_password/${id}`,
+        `https://backtube-1.onrender.com/api/v1/users/Forget_password/${id}`,
         { newPassword }, // Corrected: Ensure newPassword is sent in the correct format
         {
           headers: {

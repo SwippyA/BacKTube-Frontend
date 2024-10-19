@@ -22,7 +22,7 @@ function UpdateVideo() {
   useEffect(() => {
     const fetchVideoDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/videos/${id}`, {
+        const response = await axios.get(`https://backtube-1.onrender.com/api/v1/videos/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -65,7 +65,7 @@ function UpdateVideo() {
     try {
       // Update video data
       await axios.patch(
-        `http://localhost:8000/api/v1/videos/${id}`,
+        `https://backtube-1.onrender.com/api/v1/videos/${id}`,
         formData,
         {
           headers: {
