@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, logout } from "../Store/Reducer/Login.js";
 import Loading from "../Utilty/Loading.jsx";
+import Header from "../Header/Header";
 
 function Edit_Profile() {
   const { isAuthenticated, user, accessToken } = useSelector(
@@ -124,7 +125,9 @@ function Edit_Profile() {
   };
 
   return (
-    <div className="h-fit w-full flex flex-col justify-center items-center bg-gray-900 p-5">
+    <>
+    <Header />
+    <div className="h-fit w-full flex flex-col justify-center items-center bg-gray-900 p-5 mt-10">
       <h1 className="text-4xl p-3 text-white font-bold hover:text-purple-700">
         Edit Profile
       </h1>
@@ -219,6 +222,7 @@ function Edit_Profile() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

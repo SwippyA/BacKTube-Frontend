@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from '../Utilty/Loading'; // Import the Loading component
+import Header from "../Header/Header";
 
 function UploadVideo() {
   const { accessToken } = useSelector((state) => state.auth);
@@ -72,7 +73,9 @@ function UploadVideo() {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center bg-gray-900 p-5">
+    <>
+    <Header />
+    <div className="h-screen w-full mt-10 flex flex-col justify-center items-center bg-gray-900 p-5">
       {loading ? (
         <Loading />
       ) : (
@@ -162,6 +165,7 @@ function UploadVideo() {
         </>
       )}
     </div>
+    </>
   );
 }
 

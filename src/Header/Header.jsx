@@ -19,11 +19,14 @@ function Header() {
         {/* Logo */}
         <div className="text-2xl font-bold flex items-center">
           <img
-            src="./src/assets/WhatsApp Image 2024-07-26 at 22.45.12_62c7bdd8.jpg"
-            alt="Logo"
+            src="http://res.cloudinary.com/dm6jgzvnx/image/upload/v1729343863/bc5f7kj5hmjecovu9jyr.jpg"
+            
             className="w-16 h-16"
           />
+          <Link to={"/"}>
           <span className="ml-2 text-3xl relative right-4">Backtube</span>
+          </Link>
+         
         </div>
 
         {/* Search Bar */}

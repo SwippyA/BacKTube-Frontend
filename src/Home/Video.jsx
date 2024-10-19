@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import ReactPlayer from "react-player";
+import Header from "../Header/Header";
 import { Link, NavLink, useParams, useNavigate } from "react-router-dom";
 
 function Video() {
@@ -150,7 +151,9 @@ function Video() {
   };
   console.log(comments);
   return (
-    <div className="w-full h-fit flex flex-col lg:flex-row lg:p-0  p-7 gap-2 bg-black">
+    <>
+    <Header />
+    <div className="w-full h-fit flex flex-col lg:flex-row lg:p-0 mt-10 p-7 gap-2 bg-black">
       <div className="w-full lg:w-3/5 mt-8 p-5 flex flex-col gap-3">
         <div className="flex w-full h-[200px] bg-gray-900 rounded-2xl overflow-hidden shadow-purple-500 shadow-md lg:h-[400px]">
           <ReactPlayer
@@ -338,6 +341,7 @@ function Video() {
           ))}
       </div>
     </div>
+    </>
   );
 }
 

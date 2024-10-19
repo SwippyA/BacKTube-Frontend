@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Loading from "../Utilty/Loading";
+import Header from "../Header/Header";
 
 function Subscription() {
   const { isAuthenticated, user, accessToken } = useSelector(
@@ -50,7 +51,9 @@ function Subscription() {
   }
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen">
+    <>
+    <Header />
+    <div className="p-6 bg-gray-900 min-h-screen mt-10">
       <h1 className="text-5xl text-purple-600 font-bold mb-8 text-center">
         Your Subscriptions
       </h1>
@@ -101,6 +104,7 @@ function Subscription() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

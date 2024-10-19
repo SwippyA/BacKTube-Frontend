@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios"; // Make sure you have axios installed
 import toast from "react-hot-toast"; // Optional: for notifications
 import { useSelector } from "react-redux";
+import Header from "../Header/Header";
 
 function UpdateVideo() {
   // State to store video details
@@ -89,7 +90,9 @@ function UpdateVideo() {
   };
 
   return (
-    <div className="bg-black w-full h-screen flex items-center justify-center">
+    <>
+    <Header />
+    <div className="bg-black w-full h-screen flex  mt-9 items-center justify-center ">
       <div className="max-w-2xl w-full p-5 bg-gray-900 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold text-white mb-6">Update Video</h1>
         {loading && (
@@ -172,6 +175,7 @@ function UpdateVideo() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

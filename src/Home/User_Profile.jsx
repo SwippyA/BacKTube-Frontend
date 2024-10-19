@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Header from "../Header/Header";
 
 function User_Profile() {
   const { isAuthenticated, accessToken } = useSelector((state) => state.auth);
@@ -47,7 +48,9 @@ function User_Profile() {
   };
 
   return (
-    <div className="w-full h-fit flex flex-col bg-gray-950 p-6">
+    <>
+    <Header />
+    <div className="w-full h-fit mt-10 flex flex-col bg-gray-950 p-6">
       <div className="w-full h-fit p-6 flex flex-col md:flex-row items-center justify-between gap-2">
         <img
           src={user.avatar}
@@ -127,6 +130,7 @@ function User_Profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
